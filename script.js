@@ -1,6 +1,6 @@
 let playerScore = 0;
 let computerScore = 0;
-alert("rock, paper scissors, first to five wins!")
+alert("rock, paper scissors, first to five wins!");
 
 const game = () => {
   const getComputerChoice = () => {
@@ -19,63 +19,91 @@ const game = () => {
     return choice;
   };
 
-  const getPlayerChoice = () => {
-    const playerChoice = prompt("choose: rock,paper,scissors").toLowerCase();
+  const getPlayerChoice = (e) => {
+    const playerChoice = e.target.id;
+    console.log(e);
+    return playRound(playerChoice, getComputerChoice());
+  };
 
-    if (
-      playerChoice == "rock" ||
-      playerChoice == "paper" ||
-      playerChoice == "scissors"
-    ) {
-      return playerChoice;
+  const buttons = document.querySelectorAll("button");
+  buttons.forEach((button) =>
+    button.addEventListener("click", getPlayerChoice)
+  );
+
+  const resultsDiv = document.querySelector("#results");
+  const scoresDiv = document.querySelector("#scores");
+
+  const displayRoundSelections = (
+    playerSelection,
+    computerSelection,
+    result
+  ) => {
+    return (resultsDiv.textContent = `You chose ${playerSelection}, computer chose ${computerSelection}. ${result}`);
+  };
+
+  const updateScore = (playerScore, computerScore) => {
+    return (scoresDiv.textContent = `Player: ${playerScore} Computer: ${computerScore}`);
+  };
+
+  const handleWin = () => {
+    buttons.forEach((button) => button.setAttribute("disabled", "true"));
+
+    const body = document.querySelector("body");
+    const tryAgainButton = document.createElement("button");
+    tryAgainButton.textContent = "Try Again?";
+    body.appendChild(tryAgainButton);
+
+   
+
+    const handleTryAgainClick = () => {
+      buttons.forEach((button) => button.removeAttribute("disabled"));
+      playerScore = 0;
+      computerScore = 0;
+      resultsDiv.textContent = "";
+      scoresDiv.textContent = "Player: 0 Computer:0";
+      
+      body.removeChild(tryAgainButton);
+    };
+
+    tryAgainButton.addEventListener("click", handleTryAgainClick);
+  };
+
+  const checkWinCondition = (playerScore, computerScore) => {
+    if (playerScore == 5) {
+      handleWin();
+      return (resultsDiv.textContent = "You Win!!!");
+    } else if (computerScore == 5) {
+      handleWin();
+      return (resultsDiv.textContent = "Computer Wins!!!");
     } else {
-      return getPlayerChoice();
+      return;
     }
   };
 
-  const playerSelection = getPlayerChoice();
-  const computerSelection = getComputerChoice();
-
   const playRound = (playerSelection, computerSelection) => {
+    let result;
     if (computerSelection == playerSelection) {
-      return (
-        alert(`You chose ${playerSelection}, computer chose ${computerSelection} It's a Draw!!!!
-      player: ${playerScore}   computer: ${computerScore}`),
-        game()
-      );
+      result = "It's A Draw!";
+      displayRoundSelections(playerSelection, computerSelection, result);
     } else if (
       (playerSelection == "paper" && computerSelection == "rock") ||
       (playerSelection == "rock" && computerSelection == "scissors") ||
       (playerSelection == "scissors" && computerSelection == "paper")
     ) {
       ++playerScore;
-      if (playerScore == 5) {
-        return alert(`You win!
-        player: ${playerScore}   computer: ${computerScore}`);
-      } else {
-        return (
-          alert(`You chose ${playerSelection}, computer chose ${computerSelection} You gain a point!!!!!
-          player: ${playerScore}   computer: ${computerScore}`),
-          game()
-        );
-      }
+      result = "Player Earns a Point!";
+
+      displayRoundSelections(playerSelection, computerSelection, result);
+      updateScore(playerScore, computerScore);
+      checkWinCondition(playerScore, computerScore);
     } else {
       ++computerScore;
-      if (computerScore == 5) {
-        return alert(`You Lose!!!
-        player: ${playerScore}   computer: ${computerScore}`);
-      } else {
-        return (
-          alert(`You chose ${playerSelection}, computer chose ${computerSelection} Computer gains a point!!!
-          player: ${playerScore}   computer: ${computerScore}`),
-          game()
-        );
-      }
+      result = "Computer Earns a Point!";
+
+      displayRoundSelections(playerSelection, computerSelection, result);
+      updateScore(playerScore, computerScore);
+      checkWinCondition(playerScore, computerScore);
     }
   };
-
-  if(playerScore!=5 || computerScore!=5){
-    return playRound(playerSelection, computerSelection);
-  }
-  
 };
+game();
