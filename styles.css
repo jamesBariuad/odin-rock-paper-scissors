@@ -8,12 +8,12 @@
 body {
   display: flex;
   flex-direction: column;
-height: 100vh;
+  height: 100vh;
   justify-content: center;
   align-items: center;
   text-align: center;
   background-color: wheat;
-    gap: 20%;
+  gap: 15%;
   padding: 20px;
 }
 
@@ -31,7 +31,6 @@ main {
   gap: 50px;
   flex-direction: column;
   font-size: x-large;
-
 }
 
 .button-area {
@@ -44,13 +43,12 @@ main {
 .button-area button {
   border: none;
   background-color: wheat;
- 
 }
 
-a{
-    color: inherit;
+a {
+  color: inherit;
 }
 
-footer{
-    margin-top: auto;
+footer {
+  margin-top: auto;
 }
