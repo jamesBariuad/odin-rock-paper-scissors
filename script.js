@@ -1,6 +1,7 @@
 let playerScore = 0;
 let computerScore = 0;
-alert("rock, paper scissors, first to five wins!");
+const resultsDiv = document.querySelector("#results");
+const scoresDiv = document.querySelector("#scores");
 
 const game = () => {
   const getComputerChoice = () => {
@@ -21,7 +22,6 @@ const game = () => {
 
   const getPlayerChoice = (e) => {
     const playerChoice = e.target.id;
-    console.log(e);
     return playRound(playerChoice, getComputerChoice());
   };
 
@@ -29,9 +29,6 @@ const game = () => {
   buttons.forEach((button) =>
     button.addEventListener("click", getPlayerChoice)
   );
-
-  const resultsDiv = document.querySelector("#results");
-  const scoresDiv = document.querySelector("#scores");
 
   const displayRoundSelections = (
     playerSelection,
@@ -48,12 +45,12 @@ const game = () => {
   const handleWin = () => {
     buttons.forEach((button) => button.setAttribute("disabled", "true"));
 
-    const body = document.querySelector("body");
+    const main = document.querySelector("main");
     const tryAgainButton = document.createElement("button");
-    tryAgainButton.textContent = "Try Again?";
-    body.appendChild(tryAgainButton);
-
+    tryAgainButton.setAttribute('style', 'padding: 5px 10px; margin: auto;');  
+    tryAgainButton.textContent = "Play Again?";
    
+    main.appendChild(tryAgainButton);
 
     const handleTryAgainClick = () => {
       buttons.forEach((button) => button.removeAttribute("disabled"));
@@ -61,8 +58,8 @@ const game = () => {
       computerScore = 0;
       resultsDiv.textContent = "";
       scoresDiv.textContent = "Player: 0 Computer:0";
-      
-      body.removeChild(tryAgainButton);
+
+      main.removeChild(tryAgainButton);
     };
 
     tryAgainButton.addEventListener("click", handleTryAgainClick);

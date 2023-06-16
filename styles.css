@@ -1,0 +1,56 @@
+* {
+  font-family: "Abel", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+height: 100vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: wheat;
+    gap: 20%;
+  padding: 20px;
+}
+
+h1 {
+  font-family: "Press Start 2P", cursive;
+  margin-top: auto;
+  padding: 20px;
+
+  display: flex;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  flex-direction: column;
+  font-size: x-large;
+
+}
+
+.button-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.button-area button {
+  border: none;
+  background-color: wheat;
+ 
+}
+
+a{
+    color: inherit;
+}
+
+footer{
+    margin-top: auto;
+}
